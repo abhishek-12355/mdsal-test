@@ -1,0 +1,24 @@
+module mdsal-test {
+    yang-version 1;
+    namespace "urn:com:netshell:mdsal:params:xml:ns:yang:mdsal-test";
+    prefix "mdsal-test";
+
+    revision "2015-01-05" {
+        description "Initial revision of mdsal-test model";
+    }
+
+    rpc "say-hello" {
+     description
+        "Say Hello";
+        input {
+            leaf name {
+                type string;
+            }
+        }
+        output {
+            leaf response {
+                type string;
+            }
+        }
+    }
+}
