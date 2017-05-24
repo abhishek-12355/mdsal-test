@@ -37,14 +37,6 @@ public class MdSalTestProvider {
                 MdsalTestService.class,
                 new MdSalTestServiceImpl(dataBroker)
         );
-
-        try {
-            throw new Exception("Testing MDSAL");
-        } catch (Exception e) {
-            LOG.error(e.getMessage(), e);
-        } finally {
-            LOG.error("Service Type: " + service.getServiceType().toGenericString());
-        }
     }
 
     /**

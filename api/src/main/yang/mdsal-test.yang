@@ -7,7 +7,7 @@ module mdsal-test {
         description "Initial revision of mdsal-test model";
     }
 
-    container "student" {
+    grouping "student" {
         leaf "name" {
             type string;
             config false;
@@ -31,6 +31,10 @@ module mdsal-test {
         }
     }
 
+    container "student-container" {
+        uses "student";
+    }
+
     rpc "say-hello" {
      description
         "Say Hello";
@@ -50,25 +54,7 @@ module mdsal-test {
         description
             "Save a new Student";
         input {
-            leaf "name" {
-                type string;
-            }
-
-            leaf "sex" {
-                type enumeration {
-                    enum "Male" {
-                        value 0;
-                        description
-                            "Male student";
-                    }
-
-                    enum "Female" {
-                        value 1;
-                        description
-                            "Female student";
-                    }
-                }
-            }
+            uses "student";
         }
     }
 
@@ -82,25 +68,7 @@ module mdsal-test {
         }
 
         output {
-            leaf "name" {
-                type string;
-            }
-
-            leaf "sex" {
-                type enumeration {
-                    enum "Male" {
-                        value 0;
-                        description
-                            "Male student";
-                    }
-
-                    enum "Female" {
-                        value 1;
-                        description
-                            "Female student";
-                    }
-                }
-            }
+            uses "student";
         }
     }
 }

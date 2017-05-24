@@ -35,7 +35,7 @@ public class MdSalTestServiceImpl implements MdsalTestService {
     private static final Logger LOG = LoggerFactory.getLogger(MdSalTestServiceImpl.class);
 
     private final DataBroker dataBroker;
-    private final Map<String, InstanceIdentifier<Student>> instanceIdentifierMap = new HashMap<>();
+    private final Map<String, InstanceIdentifier<StudentContainer>> instanceIdentifierMap = new HashMap<>();
 
     public MdSalTestServiceImpl(DataBroker dataBroker) {
         this.dataBroker = dataBroker;
@@ -60,7 +60,7 @@ public class MdSalTestServiceImpl implements MdsalTestService {
 
             studentOutput = new GetStudentOutputBuilder()
                     .setName(student.getName())
-                    .setSex(GetStudentOutput.Sex.forValue(student.getSex().getIntValue()))
+                    .setSex(student.getSex())
                     .build();
         } catch (ReadFailedException e) {
             LOG.error(e.getMessage(), e);
@@ -72,11 +72,11 @@ public class MdSalTestServiceImpl implements MdsalTestService {
     @Override
     public Future<RpcResult<Void>> saveStudent(SaveStudentInput input) {
         final WriteTransaction tx = dataBroker.newWriteOnlyTransaction();
-        instanceIdentifierMap.put(input.getName(), InstanceIdentifier.builder(Student.class).build());
+        instanceIdentifierMap.put(input.getName(), InstanceIdentifier.builder(StudentContainer.class).build());
         tx.put(LogicalDatastoreType.OPERATIONAL, instanceIdentifierMap.get(input.getName()),
-                new StudentBuilder()
+                new StudentContainerBuilder()
                         .setName(input.getName())
-                        .setSex(Student.Sex.forValue(input.getSex().getIntValue()))
+                        .setSex(input.getSex())
                         .build()
         );
 
