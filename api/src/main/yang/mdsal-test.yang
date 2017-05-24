@@ -7,6 +7,30 @@ module mdsal-test {
         description "Initial revision of mdsal-test model";
     }
 
+    container "student" {
+        leaf "name" {
+            type string;
+            config false;
+        }
+
+        leaf "sex" {
+            config false;
+            type enumeration {
+                enum "Male" {
+                    value 0;
+                    description
+                        "Male student";
+                }
+
+                enum "Female" {
+                    value 1;
+                    description
+                        "Female student";
+                }
+            }
+        }
+    }
+
     rpc "say-hello" {
      description
         "Say Hello";
@@ -18,6 +42,64 @@ module mdsal-test {
         output {
             leaf response {
                 type string;
+            }
+        }
+    }
+
+    rpc "save-student" {
+        description
+            "Save a new Student";
+        input {
+            leaf "name" {
+                type string;
+            }
+
+            leaf "sex" {
+                type enumeration {
+                    enum "Male" {
+                        value 0;
+                        description
+                            "Male student";
+                    }
+
+                    enum "Female" {
+                        value 1;
+                        description
+                            "Female student";
+                    }
+                }
+            }
+        }
+    }
+
+    rpc "get-student" {
+        description
+            "Retreive Student";
+        input {
+            leaf "name" {
+                type string;
+            }
+        }
+
+        output {
+            leaf "name" {
+                type string;
+            }
+
+            leaf "sex" {
+                type enumeration {
+                    enum "Male" {
+                        value 0;
+                        description
+                            "Male student";
+                    }
+
+                    enum "Female" {
+                        value 1;
+                        description
+                            "Female student";
+                    }
+                }
             }
         }
     }

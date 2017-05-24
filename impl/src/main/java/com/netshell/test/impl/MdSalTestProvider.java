@@ -35,7 +35,7 @@ public class MdSalTestProvider {
 
         service = registry.addRpcImplementation(
                 MdsalTestService.class,
-                new MdSalTestServiceImpl()
+                new MdSalTestServiceImpl(dataBroker)
         );
 
         try {
